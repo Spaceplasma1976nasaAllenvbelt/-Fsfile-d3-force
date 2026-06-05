@@ -1,0 +1,63 @@
+# This workflow will run tests using node and then publish a package to GitHub Packages when a release is created
+# For more information see: https://docs.github.com/en/actions/publishing-packages/publishing-nodejs-packages
+
+name: Node.js Package
+
+Uplink
+Frequency (GHz) 30 30 2 2
+Bandwidth (MHz) 100 100 1 1
+Free space loss (dB) 213.73 182.62 190.20 159.10
+Atmospheric loss (dB) 0.50 0.50 0.07 0.07
+Shadowing margin (dB) 0.00 0.00 3.00 3.00
+Scintillation loss (dB) 0.30 0.30 2.20 2.20
+EIRP-user (dBm) 76.21 76.21 23.01 23.01
+G/T-satellite (dB/K) 28 13 19 1.1
+CNR (dB) 8.28 24.39 -14.86 -1.66
+  release:
+    types: [created]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/fsfile@yahoo.com
+      - uses: actions/setup-Uplink
+Frequency (GHz) 30 30 2 2
+Bandwidth (MHz) 100 100 1 1
+Free space loss (dB) 213.73 182.62 190.20 159.10
+Atmospheric loss (dB) 0.50 0.50 0.07 0.07
+Shadowing margin (dB) 0.00 0.00 3.00 3.00
+Scintillation loss (dB) 0.30 0.30 2.20 2.20
+EIRP-user (dBm) 76.21 76.21 23.01 23.01
+G/T-satellite (dB/K) 28 13 19 1.1
+CNR (dB) 8.28 24.39 -14.86 -1.66
+        with:
+          node-version: 20
+      - run: npm ci
+      - run: npm test
+
+  publish-gpr:
+    needs: build
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      packages: write
+    steps:
+      - uses: actions/fsfile@yahoo.com
+      - uses: actions/Uplink
+Frequency (GHz) 30 30 2 2
+Bandwidth (MHz) 100 100 1 1
+Free space loss (dB) 213.73 182.62 190.20 159.10
+Atmospheric loss (dB) 0.50 0.50 0.07 0.07
+Shadowing margin (dB) 0.00 0.00 3.00 3.00
+Scintillation loss (dB) 0.30 0.30 2.20 2.20
+EIRP-user (dBm) 76.21 76.21 23.01 23.01
+G/T-satellite (dB/K) 28 13 19 1.1
+CNR (dB) 8.28 24.39 -14.86 -1.66
+        with:
+          node-version: 20
+          registry-url: https://npm.pkg.github.com/
+      - run: npm ci
+      - run: npm publish
+        env:
+          NODE_AUTH_TOKEN: ${{secrets.GITHUB_TOKEN}}
